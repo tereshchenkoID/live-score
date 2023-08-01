@@ -1,0 +1,83 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('py', 1);
+  @include make-spacer('pl', 2);
+  @include make-spacer('pr', 3);
+
+  display: grid;
+  grid-template-columns: rem(56px) 3fr minmax(rem(56px), rem(78px));
+  column-gap: rem(5px);
+  background-color: var(--material);
+  cursor: pointer;
+  font-size: rem(13px);
+
+  &.active,
+  &:hover {
+    background-color: var(--primary);
+    color: var(--text-for-material);
+  }
+}
+
+.cell {
+  @include flex($justify-content: center, $direction: column);
+
+  overflow: hidden;
+
+  &:nth-child(1),
+  &:nth-child(2) {
+
+    > div {
+      @include flex($align-items: center);
+
+      flex: 1;
+    }
+  }
+
+  &:nth-child(1) {
+    text-align: center;
+    font-size: rem(12px);
+
+    > div {
+      justify-content: center;
+    }
+  }
+
+  &:nth-child(3) {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.time {
+  @include make-spacer(px, 1);
+
+  display: inline-flex;
+  background-color: var(--brand);
+  border-radius: rem(2px);
+  font-weight: var(--typography-bold);
+  color: var(--text-for-brand);
+}
+
+.text {
+  @include ellipsis;
+}
+
+.row {
+  @include flex(flex-end, center);
+
+  flex: 1;
+}
+
+.th {
+  flex-shrink: 0;
+  min-width: rem(20px);
+}
+
+.indicator {
+  @include make-spacer(mx, auto);
+  @include size(rem(5px));
+
+  border-radius: 50%;
+  background-color: var(--amber);
+}

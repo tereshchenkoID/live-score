@@ -1,0 +1,91 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+}
+
+.shadow {
+  @include absolute-filled;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.wrapper {
+  @include make-spacer(pt, 6);
+  @include make-spacer(pb, 4);
+  @include make-spacer(px, 4);
+  @include flex(center, center, column);
+
+  position: relative;
+  width: 100%;
+  max-width: rem(700px);
+  min-height: rem(300px);
+  border-radius: rem(2px);
+  background-color: var(--bg);
+}
+
+.title {
+  @include make-spacer(mt, 2);
+  @include make-spacer(mb, 4);
+
+  font-size: rem(24px);
+}
+
+.map {
+  @include size(rem(160px), auto);
+}
+
+.list {
+  @include make-spacer(px, 4);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: rem(20px);
+  width: 100%;
+}
+
+.item {
+  @include make-spacer(px, 2);
+  @include size(100%, rem(38px));
+
+  display: grid;
+  grid-template-columns: rem(30px) 1fr;
+  align-items: center;
+  column-gap: rem(10px);
+  text-align: left;
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--text-for-material);
+  }
+}
+
+.close {
+  @include size(rem(18px));
+
+  position: absolute;
+  top: rem(20px);
+  right: rem(20px);
+
+  &:hover {
+    color: var(--brand);
+  }
+}
+
+.icon {
+  @include size(100%, rem(20px));
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+}

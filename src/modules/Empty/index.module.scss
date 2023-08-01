@@ -1,0 +1,19 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(p, 2);
+
+  text-align: center;
+}
+
+.icon {
+  @include make-spacer(mx, auto);
+  @include make-spacer(mb, 1);
+  @include size(rem(88px));
+
+  opacity: 0.33;
+}
+
+.text {
+  font-size: rem(14px);
+}

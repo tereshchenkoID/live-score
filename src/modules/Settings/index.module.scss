@@ -1,0 +1,87 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+  min-height: rem(300px);
+}
+
+.header {
+  @include make-spacer('py', 1);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: 1fr rem(13px);
+  align-items: center;
+  gap: rem(10px);
+  background-color: var(--primary);
+  border-bottom: 1px solid var(--border);
+  height: rem(34px);
+  cursor: pointer;
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
+
+  &.active,
+  &:hover {
+    color: var(--text-for-material);
+  }
+}
+
+.header,
+.footer {
+  @include make-spacer('px', 2);
+}
+
+.footer {
+  @include flex($align-items: center);
+  @include make-spacer('py', 2);
+
+  gap: rem(10px);
+}
+
+.wrapper {
+  @include make-spacer(p, 2);
+
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.text {
+  @include make-spacer(mb, 1);
+
+  font-size: rem(12px);
+  text-transform: uppercase;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: rem(10px);
+}
+
+.button {
+  @include flex(center, center);
+  @include make-spacer(px, 2);
+
+  background-color: transparent;
+  border: 1px solid var(--brand);
+  border-radius: rem(2px);
+  height: rem(26px);
+  font-size: rem(14px);
+  color: var(--sub-text)!important;
+
+  &:hover {
+    background-color: var(--brand-hover);
+    color: var(--text-for-brand)!important;
+  }
+
+  &.active {
+    background-color: var(--brand);
+    color: var(--text-for-brand)!important;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,38 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(px, 3);
+  @include make-spacer(py, 3);
+
+  position: fixed;
+  top: rem(-10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary);
+  border-radius: rem(4px);
+  overflow: hidden;
+  min-width: rem(780px);
+  color: var(--color-white);
+  text-align: center;
+  z-index: 14;
+}
+
+.wrapper {
+  @include flex($align-items: center);
+  @include make-spacer(pt, half);
+}
+
+.text {
+  flex-grow: 1;
+}
+
+.button {
+  @include size(rem(18px));
+
+  position: relative;
+  color: var(--color-white);
+
+  &:hover {
+    color: var(--brand);
+  }
+}

@@ -1,0 +1,96 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+}
+
+.shadow {
+  @include absolute-filled;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.wrapper {
+  @include make-spacer(pt, 6);
+  @include make-spacer(pb, 4);
+  @include make-spacer(px, 6);
+  @include flex(center, center, column);
+
+  position: relative;
+  width: 100%;
+  max-width: rem(500px);
+  min-height: rem(300px);
+  border-radius: rem(2px);
+  background-color: var(--bg);
+}
+
+.row {
+  @include make-spacer(mb, 4);
+
+  width: 100%;
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+}
+
+
+.text {
+  @include make-spacer(mb, 1);
+}
+
+.field {
+  @include size(100%, rem(38px));
+  @include make-spacer(px, 2);
+
+  border: rem(1px) solid var(--border);
+  background-color: var(--material);
+  border-radius: rem(3px);
+  color: var(--sub-text);
+
+  &:focus {
+    outline: none;
+    border-color: var(--brand);
+  }
+}
+
+.button {
+  @include make-spacer(px, 4);
+
+  display: inline-flex;
+  align-items: center;
+  border-radius: rem(3px);
+  background-color: var(--brand);
+  height: rem(32px);
+  color: var(--text-for-brand)!important;
+}
+
+.close {
+  @include size(rem(18px));
+
+  position: absolute;
+  top: rem(20px);
+  right: rem(20px);
+
+  &:hover {
+    color: var(--brand);
+  }
+}
+
+.icon {
+  @include size(100%, rem(20px));
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+}

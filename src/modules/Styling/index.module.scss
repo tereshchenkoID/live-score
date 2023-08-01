@@ -1,0 +1,101 @@
+@import "scss/config";
+
+.block {
+  min-height: rem(300px);
+}
+
+.item {
+  @include make-spacer(mb, 2);
+
+  position: relative;
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+}
+
+.header {
+  @include make-spacer('py', 1);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: 1fr rem(13px);
+  align-items: center;
+  gap: rem(10px);
+  background-color: var(--primary);
+  border-bottom: 1px solid var(--border);
+  height: rem(34px);
+  cursor: pointer;
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
+
+  &.active,
+  &:hover {
+    color: var(--text-for-material);
+  }
+}
+
+.header,
+.footer {
+  @include make-spacer('px', 2);
+}
+
+.footer {
+  @include flex($align-items: center);
+  @include make-spacer('py', 2);
+
+  gap: rem(10px);
+}
+
+.icon {
+  @include make-spacer(mx, auto);
+  @include size(rem(13px));
+
+  display: block;
+}
+
+.wrapper {
+  @include make-spacer(p, 2);
+
+  border-bottom: 1px solid var(--border);
+}
+
+.field {
+  @include size(100%, rem(28px));
+  @include make-spacer(px, 2);
+
+  border: rem(1px) solid var(--border);
+  background-color: var(--primary);
+  border-radius: rem(3px);
+  font-size: rem(12px);
+  color: var(--sub-text);
+
+  &:focus {
+    outline: none;
+    border-color: var(--brand);
+  }
+}
+
+.notification {
+  @include make-spacer(mt, 1);
+
+  font-size: rem(12px);
+  max-width: rem(300px);
+}
+
+.button {
+  @include flex(center, center);
+  @include make-spacer(px, 2);
+
+  background-color: var(--brand);
+  border-radius: rem(2px);
+  height: rem(26px);
+  font-size: rem(14px);
+  color: var(--text-for-brand)!important;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

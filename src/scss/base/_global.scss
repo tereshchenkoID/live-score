@@ -1,0 +1,53 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: var(--min-width);
+  min-height: var(--min-height);
+}
+
+body {
+  @include smooth-font;
+}
+
+menu {
+  @include make-spacer('p', 0);
+}
+
+button {
+  @include reset-button;
+}
+
+hr {
+  @include make-spacer('m', 0);
+
+  border: 0;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+p {
+  @include make-spacer(m, 0);
+  @include make-spacer(p, 0);
+}
+
+picture,
+svg,
+img {
+  @include size(100%);
+
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+input,
+select {
+  font-size: rem(14px);
+}

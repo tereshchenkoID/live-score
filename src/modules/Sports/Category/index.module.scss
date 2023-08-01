@@ -1,0 +1,35 @@
+@import "scss/config";
+
+.title {
+  @include make-spacer('py', 1);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: 1fr rem(25px);
+  align-items: center;
+  gap: rem(10px);
+  background-color: var(--material);
+  border-bottom: 1px solid var(--border);
+  height: rem(38px);
+  cursor: pointer;
+
+  &.active,
+  &:hover {
+    background-color: var(--primary);
+    color: var(--text-for-material);
+  }
+}
+
+.icon {
+  @include make-spacer(mx, auto);
+  @include size(rem(20px));
+
+  display: block;
+}
+
+.text {
+  @include ellipsis;
+
+  font-size: rem(13px);
+  text-transform: uppercase;
+}

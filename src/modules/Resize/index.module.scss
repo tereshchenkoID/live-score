@@ -1,0 +1,102 @@
+@import "scss/config";
+
+.block {
+  position: fixed;
+  top: var(--navigation-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.shadow {
+  @include absolute-filled;
+}
+
+.wrapper {
+  position: absolute;
+  right: rem(58px);
+  box-shadow: 0 rem(2px) rem(2px) 0 rgba(0, 0, 0, 0.14);
+  background-color: var(--material);
+  border-radius: rem(3px);
+  overflow: hidden;
+  box-shadow: 0 rem(2px) rem(2px) 0 rgba(0, 0, 0, 0.14);
+  width: rem(240px);
+  font-size: rem(12px);
+}
+
+.header,
+.body {
+  @include make-spacer(px, 2);
+}
+
+.header {
+  @include make-spacer(py, 1);
+  @include size(100%, rem(36px));
+  @include flex($align-items: center);
+
+  background-color: var(--brand);
+  color: var(--text-for-brand);
+}
+
+.body {
+  @include make-spacer(py, 2);
+  @include flex($direction: column);
+
+  gap: rem(10px);
+}
+
+.options {
+  position: relative;
+  height: rem(24px);
+}
+
+.button {
+  @include size(rem(24px));
+
+  position: relative;
+
+  &:nth-child(1) {
+    left: 12%;
+  }
+
+  &:nth-child(2) {
+    left: 30%;
+  }
+
+  &:nth-child(3) {
+    left: 62%;
+  }
+}
+
+.row {
+  @include flex(center, center);
+
+  gap: rem(5px);
+}
+
+.range {
+  width: 100%;
+}
+
+.field {
+  @include size(rem(64px), rem(22px));
+
+  border: rem(1px) solid var(--border);
+  border-radius: rem(2px);
+  background-color: var(--bg);
+  color: var(--sub-text);
+  text-align: center;
+  font-size: rem(14px);
+  -moz-appearance: none;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--brand);
+  }
+}

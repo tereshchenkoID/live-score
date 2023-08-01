@@ -1,0 +1,142 @@
+@import "scss/config";
+
+.block {
+  @include flex($direction: column);
+
+  position: relative;
+  height: 100%;
+}
+
+.navbar {
+  @include make-spacer(px, 2);
+  @include flex(flex-end, stretch);
+  @include size(100%, var(--navigation-height));
+
+  position: relative;
+  gap: rem(20px);
+  flex-shrink: 0;
+  background-color: var(--material);
+  border: 1px solid var(--border);
+  z-index: 1;
+}
+
+.links {
+  @include flex;
+}
+
+.link {
+  @include flex(center, center);
+  @include make-spacer(mx, 2);
+
+  gap: rem(5px);
+  position: relative;
+  text-transform: uppercase;
+  font-size: rem(14px);
+  font-weight: var(--typography-medium);
+
+  &::after {
+    @include size(0, rem(3px));
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: var(--brand);
+    transition: var(--default-transition);
+    content: '';
+  }
+
+  &:last-child {
+    @include make-spacer(mr, 0);
+  }
+
+  &.active,
+  &:hover {
+    color: var(--link-hover);
+  }
+
+  &.active {
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.settings {
+  @include flex(center);
+
+  height: 100%;
+}
+
+.setting {
+  @include make-spacer(px, 2);
+  @include flex(center, center);
+
+  position: relative;
+  min-width: rem(50px);
+
+  &::before {
+    @include size(rem(1px), rem(21px));
+    @include absolute-center-left(0);
+
+    background-color: var(--sub-text);
+    content: '';
+  }
+
+  &:first-child {
+    @include make-spacer(ml, 0);
+  }
+}
+
+.icon,
+.language {
+  @include size(rem(21px));
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: rem(375px) 1fr;
+  align-items: stretch;
+  flex-grow: 1;
+  overflow-y: hidden;
+}
+
+.aside {
+  @include scroll;
+
+  background-color: var(--material);
+}
+
+.content {
+  @include make-spacer(p, 10);
+}
+
+.window {
+  @include make-spacer(mx, auto);
+  @include size(280px, auto);
+
+  display: block;
+  aspect-ratio: 9/16;
+  background-color: var(--material);
+  min-width: rem(280px)!important;;
+  max-width: rem(800px)!important;
+}
+
+.login {
+  @include flex(center, center);
+  @include make-spacer(px, 2);
+
+  background-color: var(--brand);
+  border-radius: rem(4px);
+  height: rem(26px);
+  color: var(--text-for-brand)!important;
+  font-size: rem(14px);
+}
+
+.color {
+  @include size(rem(23px));
+
+  border-radius: 50%;
+  border: rem(2px) solid var(--brand);
+}

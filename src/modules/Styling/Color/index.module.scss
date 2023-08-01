@@ -1,0 +1,39 @@
+@import "scss/config";
+
+.block {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: rem(5px);
+  align-items: center;
+  position: relative;
+  font-size: rem(12px);
+}
+
+.color {
+  @include size(rem(20px));
+
+  border-radius: 50%;
+  border: rem(2px) solid var(--brand);
+}
+
+.button {
+  display: grid;
+  grid-template-columns: auto rem(20px);
+  column-gap: rem(5px);
+  align-items: center;
+
+  * {
+    pointer-events: none;
+  }
+}
+
+.popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 2;
+}
+
+.label {
+  text-transform: capitalize;
+}

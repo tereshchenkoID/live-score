@@ -1,0 +1,58 @@
+@import "scss/config";
+
+.title {
+  @include make-spacer('py', 1);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: rem(25px) 1fr rem(25px);
+  align-items: center;
+  gap: rem(10px);
+  background-color: var(--material);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  height: rem(38px);
+
+  &.active,
+  &:hover {
+    background-color: var(--primary);
+    color: var(--text-for-material);
+  }
+
+  &.active {
+
+    .icon {
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
+.country {
+  @include size(100%, rem(20px));
+}
+
+.icon {
+  @include make-spacer(mx, auto);
+
+  display: block;
+  transition: var(--default-transition);
+
+  &.sm {
+    @include size(rem(13px));
+  }
+
+  &.lg {
+    @include size(rem(18px));
+  }
+}
+
+.text {
+  @include ellipsis;
+
+  font-size: rem(13px);
+  text-transform: uppercase;
+}
+
+.item {
+  border-bottom: 1px solid var(--border);
+}
