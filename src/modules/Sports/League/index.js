@@ -12,7 +12,7 @@ const League = ({data}) => {
 
     return (
         <div className={style.block}>
-            <div
+            <button
                 className={
                     classNames(
                         style.title,
@@ -60,7 +60,7 @@ const League = ({data}) => {
                         <Icon id={'icon-angle-down'} />
                     </div>
                 </div>
-            </div>
+            </button>
             {
                 active &&
                 <div className={style.list}>

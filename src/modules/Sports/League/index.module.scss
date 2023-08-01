@@ -3,6 +3,7 @@
 .title {
   @include make-spacer('py', 1);
   @include make-spacer('px', 2);
+  @include size(100%, rem(38px));
 
   display: grid;
   grid-template-columns: rem(25px) 1fr rem(25px);
@@ -10,8 +11,7 @@
   gap: rem(10px);
   background-color: var(--material);
   border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  height: rem(38px);
+  text-align: left;
 
   &.active,
   &:hover {

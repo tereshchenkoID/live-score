@@ -1,14 +1,10 @@
-import classNames from "classnames";
-
 import style from './index.module.scss';
 
 const Code = () => {
 
     return (
-        <div
-            className={style.block}
-        >
-            Code
+        <div className={style.block}>
+            <div className={style.header}>Code</div>
         </div>
     );
 }

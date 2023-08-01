@@ -110,6 +110,7 @@
 
 .content {
   @include make-spacer(p, 10);
+  @include scroll;
 }
 
 .window {

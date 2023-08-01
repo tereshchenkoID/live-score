@@ -27,7 +27,7 @@ const Sports = () => {
                 ?
                     <Loader type={'block'}/>
                 :
-                    <div>
+                    <>
                         {
                             data.sports.map((item, index) =>
                                 <div key={index}>
@@ -38,7 +38,7 @@ const Sports = () => {
                                 </div>
                             )
                         }
-                    </div>
+                    </>
             }
 
         </div>

@@ -111,7 +111,7 @@ const Home = () => {
                             }}
                             className={style.color}
                             onClick={() => {
-                                setSettings(3)
+                                setSettings(settings === 3 ? null : 3)
                             }}
                         />
                     </div>

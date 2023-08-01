@@ -25,7 +25,7 @@ const Category = ({ data, index }) => {
 
     return (
         <div className={style.block}>
-            <div
+            <button
                 className={
                     classNames(
                         style.title,
@@ -36,15 +36,11 @@ const Category = ({ data, index }) => {
                     setActive(!active)
                 }}
             >
-                <div>
-                    <div className={style.text}>{data.name}</div>
-                </div>
-                <div>
-                    <span className={style.icon}>
-                        <Icon id={`sport-${data.id}`} />
-                    </span>
-                </div>
-            </div>
+                <p className={style.text}>{data.name}</p>
+                <p className={style.icon}>
+                    <Icon id={`sport-${data.id}`} />
+                </p>
+            </button>
             {
                 active &&
                 <div>

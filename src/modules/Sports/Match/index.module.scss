@@ -10,6 +10,7 @@
   column-gap: rem(5px);
   background-color: var(--material);
   cursor: pointer;
+  transition: var(--default-transition);
   font-size: rem(13px);
 
   &.active,
