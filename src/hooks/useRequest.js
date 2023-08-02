@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+import {hostnames} from "constant/config";
+
 export const useRequest = (url) => {
   const server = axios.create({
-    baseURL: 'http://62.112.10.14/',
+    baseURL: hostnames.PROD,
   })
 
   const get = async (url, headers) => {

@@ -17,6 +17,10 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.form {
+  width: 100%;
+}
+
 .wrapper {
   @include make-spacer(pt, 6);
   @include make-spacer(pb, 4);
@@ -41,6 +45,9 @@
   }
 }
 
+.overflow {
+  position: relative;
+}
 
 .text {
   @include make-spacer(mb, 1);
@@ -48,7 +55,8 @@
 
 .field {
   @include size(100%, rem(38px));
-  @include make-spacer(px, 2);
+  @include make-spacer(pl, 2);
+  @include make-spacer(pr, 8);
 
   border: rem(1px) solid var(--border);
   background-color: var(--material);
@@ -85,12 +93,10 @@
 }
 
 .icon {
-  @include size(100%, rem(20px));
+  @include absolute-center-right(rem(15px));
+  @include size(rem(20px));
 
-  img {
-    @include size(100%);
-
-    display: block;
-    object-fit: cover;
+  &:hover {
+    color: var(--link-hover);
   }
 }

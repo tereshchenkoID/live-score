@@ -1,6 +1,7 @@
 {
   "notification": {
-    "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur"
+    "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur",
+    "wrong_login_password": "Invalid password or login"
   },
   "interface": {
     "sports": "Sports",
@@ -9,6 +10,7 @@
     "code": "Get Code",
     "choose_language": "Choose your language",
     "login": "Login",
+    "logout": "Logout",
     "sign_in": "Sign In",
     "username": "Username",
     "password": "Password",

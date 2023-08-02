@@ -6,7 +6,7 @@ export const setData = () => async dispatch => {
     const { get } = useRequest();
 
     try {
-        const data = await get('/all.php')
+        const data = await get('/lmt/feed/')
         dispatch({
             type: types.SET_DATA,
             payload: data,

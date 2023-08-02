@@ -1,5 +1,6 @@
 import {useRequest} from "hooks/useRequest";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
@@ -77,12 +78,15 @@ const OPTIONS = {
 const Settings = () => {
     const {get} = useRequest()
     const { t } = useTranslation()
+    const {auth} = useSelector((state) => state.auth)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [defaults, setDefaults] = useState([])
 
     useEffect(() => {
-        get('/lmt/settings/').then((json) => {
+        const url = auth ? `/lmt/settings/?token=${auth}` : `/lmt/settings/`
+
+        get(url).then((json) => {
             setData(json)
             setDefaults(json)
 

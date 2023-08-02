@@ -1,5 +1,5 @@
 export const hostnames = {
-    PROD: "https://api.qool90.bet",
+    PROD: "https://matchtracker.live",
 }
 
 export const iframe = {

@@ -133,6 +133,10 @@
   height: rem(26px);
   color: var(--text-for-brand)!important;
   font-size: rem(14px);
+
+  &.warning {
+    background-color: var(--red);
+  }
 }
 
 .color {

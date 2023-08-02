@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import dataReducer from "./reducers/dataReducer";
 import matchReducer from "./reducers/matchReducer";
 import notificationReducer from "./reducers/notificationReducer";
+import authReducer from "./reducers/authReducer";
 
 const allReducer = combineReducers({
     data: dataReducer,
     match: matchReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    auth: authReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

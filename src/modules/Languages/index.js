@@ -16,7 +16,7 @@ const Languages = ({setSettings, setLanguage}) => {
     const {get} = useRequest()
 
     useEffect(() => {
-        get('https://api.matchtracker.live/ukr/config_language').then((json) => {
+        get('/lmt/language/').then((json) => {
             setData(json.doc[0].data)
             setLoading(false)
         })

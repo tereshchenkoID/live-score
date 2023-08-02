@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
@@ -14,12 +15,15 @@ import style from './index.module.scss';
 const Styling = () => {
     const {get} = useRequest()
     const { t } = useTranslation()
+    const {auth} = useSelector((state) => state.auth)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [defaults, setDefaults] = useState([])
 
     useEffect(() => {
-        get('/lmt/styling/').then((json) => {
+        const url = auth ? `/lmt/styling/?token=${auth}` : `/lmt/styling/`
+
+        get(url).then((json) => {
             setData(json)
             setDefaults(json)
 

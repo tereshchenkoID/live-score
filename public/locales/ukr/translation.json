@@ -1,6 +1,7 @@
 {
   "notification": {
-    "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur UA"
+    "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur UA",
+    "wrong_login_password": "Invalid password or login UA"
   },
   "interface": {
     "sports": "Sports UA",
@@ -9,6 +10,7 @@
     "code": "Get Code UA",
     "choose_language": "Choose your language UA",
     "login": "Login UA",
+    "logout": "Logout UA",
     "sign_in": "Sign In UA",
     "username": "Username UA",
     "password": "Password UA",

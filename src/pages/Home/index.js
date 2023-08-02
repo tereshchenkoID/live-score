@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+
+import {setAuth} from "store/actions/authAction";
 
 import classNames from "classnames";
 
@@ -47,21 +49,30 @@ const NAVBAR = [
         id: 2,
         name: 'styling',
     },
-    {
-        id: 3,
-        name: 'code',
-    }
 ]
 
 
 const Home = () => {
     const { t } = useTranslation()
+    const dispatch = useDispatch()
     const {notification} = useSelector((state) => state.notification)
+    const {auth} = useSelector((state) => state.auth)
     const [active, setActive] = useState(0)
     const [settings, setSettings] = useState(false)
     const [width, setWidth] = useState(iframe.min);
     const [language, setLanguage] = useState('gb')
     const [color, setColor] = useState(sessionStorage.getItem('color') || 'transparent')
+
+    const handleLogin = () => {
+        if (auth) {
+            sessionStorage.clear()
+            dispatch(setAuth(null))
+            setActive(0)
+        }
+        else {
+            setSettings(2)
+        }
+    }
 
     return (
         <div
@@ -90,17 +101,45 @@ const Home = () => {
                             </button>
                         )
                     }
+
+                    {
+                        auth &&
+                        <button
+                            className={
+                                classNames(
+                                    style.link,
+                                    active === NAVBAR.length && style.active
+                                )
+                            }
+                            onClick={() => {
+                                setActive(NAVBAR.length)
+                            }}
+                        >
+                            {t(`interface.code`)}
+                        </button>
+                    }
                 </div>
 
                 <div className={style.settings}>
                     <div className={style.setting}>
                         <button
-                            className={style.login}
+                            className={
+                                classNames(
+                                    style.login,
+                                    auth && style.warning
+                                )
+                            }
                             onClick={() => {
-                                setSettings(2)
+                                handleLogin()
                             }}
                         >
-                            {t('interface.login')}
+                            {
+                                auth
+                                    ?
+                                        t('interface.logout')
+                                    :
+                                        t('interface.login')
+                            }
                         </button>
                     </div>
 
