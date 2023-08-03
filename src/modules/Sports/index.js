@@ -16,6 +16,11 @@ const Sports = () => {
         dispatch(setData()).then(() => {
             setLoading(false)
         })
+
+        setInterval(() => {
+            dispatch(setData())
+        }, 30000)
+
     }, []);
 
     return (

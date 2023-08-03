@@ -2,6 +2,7 @@ import {useRequest} from "hooks/useRequest";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
+import {useNavigate} from 'react-router-dom'
 
 import {setNotification} from "store/actions/notificationAction";
 import {setAuth} from "store/actions/authAction";
@@ -11,6 +12,7 @@ import Icon from "components/Icon";
 import style from './index.module.scss';
 
 const Login = ({setSettings}) => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { t } = useTranslation()
     const [username, setUsername] = useState('')
@@ -34,6 +36,7 @@ const Login = ({setSettings}) => {
                 sessionStorage.setItem('token', json.token)
                 dispatch(setAuth(json.token))
                 setSettings(null)
+                navigate(0)
             }
             else {
                 dispatch(setNotification(t('notification.wrong_login_password')))

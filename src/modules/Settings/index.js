@@ -1,10 +1,11 @@
 import {useRequest} from "hooks/useRequest";
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import {setNotification} from "store/actions/notificationAction";
 import {compareArrays} from "helpers/compareArrays";
 
 import Loader from "components/Loader";
@@ -78,10 +79,13 @@ const OPTIONS = {
 const Settings = () => {
     const {get} = useRequest()
     const { t } = useTranslation()
+    const dispatch = useDispatch()
     const {auth} = useSelector((state) => state.auth)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [defaults, setDefaults] = useState([])
+
+    const {post} = useRequest()
 
     useEffect(() => {
         const url = auth ? `/lmt/settings/?token=${auth}` : `/lmt/settings/`
@@ -94,6 +98,21 @@ const Settings = () => {
         })
     }, []);
 
+    const handleSubmit = (event) => {
+        event && event.preventDefault();
+
+        post(
+            `/lmt/settings/?token=${auth}`,
+            JSON.stringify(data)
+        ).then((json) => {
+            if (json) {
+                setData(json)
+                setDefaults(json)
+                dispatch(setNotification(t('notification.date_update')))
+            }
+        })
+    }
+
     const updateData = (key, data) => {
         setData((prev) => ({ ...prev, [key]: data }));
     }
@@ -105,7 +124,7 @@ const Settings = () => {
                     ?
                         <Loader type={'block'}/>
                     :
-                        <>
+                        <form onSubmit={handleSubmit}>
                             <div className={style.header}>
                                 <span>{t('interface.options')}</span>
                             </div>
@@ -121,6 +140,7 @@ const Settings = () => {
                                                 value.map((item, idx) =>
                                                     <button
                                                         key={idx}
+                                                        type={'button'}
                                                         className={
                                                             classNames(
                                                                 style.button,
@@ -140,17 +160,21 @@ const Settings = () => {
                                 ))}
                             </div>
                             <div className={style.footer}>
-                                <button
-                                    className={
-                                        classNames(
-                                            style.button,
-                                            style.active,
-                                            style.disabled
-                                        )
-                                    }
-                                >
-                                    {t('interface.save')}
-                                </button>
+                                {
+                                    auth &&
+                                    <button
+                                        type={'submit'}
+                                        className={
+                                            classNames(
+                                                style.button,
+                                                style.active,
+                                                compareArrays(data, defaults) && style.disabled
+                                            )
+                                        }
+                                    >
+                                        {t('interface.save')}
+                                    </button>
+                                }
                                 <button
                                     className={
                                         classNames(
@@ -159,6 +183,7 @@ const Settings = () => {
                                             compareArrays(data, defaults) && style.disabled
                                         )
                                     }
+                                    type={'button'}
                                     onClick={() => {
                                         setData(defaults)
                                     }}
@@ -166,7 +191,7 @@ const Settings = () => {
                                     {t('interface.reset')}
                                 </button>
                             </div>
-                        </>
+                        </form>
             }
         </div>
     );

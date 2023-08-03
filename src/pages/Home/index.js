@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 import {setAuth} from "store/actions/authAction";
 
@@ -9,6 +10,7 @@ import classNames from "classnames";
 import {iframe} from "constant/config";
 
 import Icon from "components/Icon";
+import Theme from "components/Theme";
 import Sports from "modules/Sports";
 import Code from "modules/Code";
 import Settings from "modules/Settings";
@@ -52,22 +54,24 @@ const NAVBAR = [
 ]
 
 
-const Home = () => {
+const Home = ({theme, setTheme}) => {
     const { t } = useTranslation()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const {notification} = useSelector((state) => state.notification)
     const {auth} = useSelector((state) => state.auth)
     const [active, setActive] = useState(0)
     const [settings, setSettings] = useState(false)
     const [width, setWidth] = useState(iframe.min);
-    const [language, setLanguage] = useState('gb')
+    const [language, setLanguage] = useState(sessionStorage.getItem('flag') || 'gb')
     const [color, setColor] = useState(sessionStorage.getItem('color') || 'transparent')
 
     const handleLogin = () => {
         if (auth) {
-            sessionStorage.clear()
+            sessionStorage.removeItem('token')
             dispatch(setAuth(null))
             setActive(0)
+            navigate(0)
         }
         else {
             setSettings(2)
@@ -141,6 +145,12 @@ const Home = () => {
                                         t('interface.login')
                             }
                         </button>
+                    </div>
+                    <div className={style.setting}>
+                        <Theme
+                            data={theme}
+                            action={setTheme}
+                        />
                     </div>
 
                     <div className={style.setting}>

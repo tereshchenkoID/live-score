@@ -1,16 +1,15 @@
 import {Suspense, useState} from "react";
-import {Routes, Route} from "react-router-dom";
 
 import classNames from "classnames";
 
-import {router} from "router";
+import Home from "../pages/Home";
 
 import Loader from "components/Loader";
 
 import style from './index.module.scss';
 
 const App = () => {
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
+    const [theme, setTheme] = useState(sessionStorage.getItem('theme') || 'dark')
 
     return (
         <div
@@ -20,17 +19,10 @@ const App = () => {
             )}
         >
             <Suspense fallback={<Loader />}>
-                <Routes>
-                    {
-                        router.map(item =>
-                            <Route
-                                key = {new Date().getTime()}
-                                path = {item.path}
-                                element = {item.element}
-                            />
-                        )
-                    }
-                </Routes>
+                <Home
+                    theme={theme}
+                    setTheme={setTheme}
+                />
             </Suspense>
         </div>
     );

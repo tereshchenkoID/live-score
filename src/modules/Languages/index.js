@@ -26,6 +26,8 @@ const Languages = ({setSettings, setLanguage}) => {
         i18n.changeLanguage(iso);
         setSettings(null)
         setLanguage(a2)
+        sessionStorage.setItem('language', iso)
+        sessionStorage.setItem('flag', a2)
     };
 
     return (

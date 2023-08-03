@@ -1,7 +1,8 @@
 {
   "notification": {
     "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur UA",
-    "wrong_login_password": "Invalid password or login UA"
+    "wrong_login_password": "Invalid password or login UA",
+    "date_update": "Data update successful UA"
   },
   "interface": {
     "sports": "Sports UA",

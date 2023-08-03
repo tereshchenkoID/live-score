@@ -1,7 +1,8 @@
 {
   "notification": {
     "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur",
-    "wrong_login_password": "Invalid password or login"
+    "wrong_login_password": "Invalid password or login",
+    "date_update": "Data update successful"
   },
   "interface": {
     "sports": "Sports",

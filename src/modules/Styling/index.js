@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import {setNotification} from "store/actions/notificationAction";
 import {useRequest} from "hooks/useRequest";
 import {compareArrays} from "helpers/compareArrays";
 
@@ -15,10 +16,13 @@ import style from './index.module.scss';
 const Styling = () => {
     const {get} = useRequest()
     const { t } = useTranslation()
+    const dispatch = useDispatch()
     const {auth} = useSelector((state) => state.auth)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [defaults, setDefaults] = useState([])
+
+    const {post} = useRequest()
 
     useEffect(() => {
         const url = auth ? `/lmt/styling/?token=${auth}` : `/lmt/styling/`
@@ -31,6 +35,21 @@ const Styling = () => {
         })
     }, []);
 
+    const handleSubmit = (event) => {
+        event && event.preventDefault();
+
+        post(
+            `/lmt/styling/?token=${auth}`,
+            JSON.stringify(data)
+        ).then((json) => {
+            if (json) {
+                setData(json)
+                setDefaults(json)
+                dispatch(setNotification(t('notification.date_update')))
+            }
+        })
+    }
+
     const updateData = (key, data) => {
         setData((prev) => ({ ...prev, [key]: data }));
     }
@@ -42,7 +61,7 @@ const Styling = () => {
                     ?
                         <Loader type={'block'}/>
                     :
-                        <>
+                        <form onSubmit={handleSubmit}>
                             <div className={style.header}>
                                 <span>{t('interface.theme')}</span>
                             </div>
@@ -78,16 +97,20 @@ const Styling = () => {
                                 </div>
                             </div>
                             <div className={style.footer}>
-                                <button
-                                    className={
-                                        classNames(
-                                            style.button,
-                                            style.disabled
-                                        )
-                                    }
-                                >
-                                    {t('interface.save')}
-                                </button>
+                                {
+                                    auth &&
+                                    <button
+                                        type={'submit'}
+                                        className={
+                                            classNames(
+                                                style.button,
+                                                compareArrays(data, defaults) && style.disabled
+                                            )
+                                        }
+                                    >
+                                        {t('interface.save')}
+                                    </button>
+                                }
                                 <button
                                     className={
                                         classNames(
@@ -95,6 +118,7 @@ const Styling = () => {
                                             compareArrays(data, defaults) && style.disabled
                                         )
                                     }
+                                    type={'button'}
                                     onClick={() => {
                                         setData(defaults)
                                     }}
@@ -102,7 +126,7 @@ const Styling = () => {
                                     {t('interface.reset')}
                                 </button>
                             </div>
-                        </>
+                        </form>
             }
         </div>
     );

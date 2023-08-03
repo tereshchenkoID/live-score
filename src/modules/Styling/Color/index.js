@@ -30,6 +30,7 @@ const Color = ({label, data, action}) => {
         >
             <div className={style.label}>{t(`interface.${label}`)}</div>
             <button
+                type={'button'}
                 ref={buttonRef}
                 className={style.button}
                 onClick={() => {
