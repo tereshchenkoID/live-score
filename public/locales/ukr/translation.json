@@ -1,6 +1,7 @@
 {
   "notification": {
     "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur UA",
+    "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur",
     "wrong_login_password": "Invalid password or login UA",
     "date_update": "Data update successful UA"
   },
@@ -17,6 +18,7 @@
     "password": "Password UA",
     "match_enable": "No matches available UA",
     "save": "Save UA",
+    "download": "Download UA",
     "reset": "Reset UA",
     "theme": "Theme UA",
     "options": "Options UA",

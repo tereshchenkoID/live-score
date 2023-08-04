@@ -1,6 +1,7 @@
 {
   "notification": {
     "logo": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur",
+    "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet aspernatur",
     "wrong_login_password": "Invalid password or login",
     "date_update": "Data update successful"
   },
@@ -17,6 +18,7 @@
     "password": "Password",
     "match_enable": "No matches available",
     "save": "Save",
+    "download": "Download",
     "reset": "Reset",
     "theme": "Theme",
     "options": "Options",

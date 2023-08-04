@@ -113,35 +113,17 @@
   @include scroll;
 }
 
-.window {
-  @include make-spacer(mx, auto);
-  @include size(280px, auto);
-
-  display: block;
-  aspect-ratio: 9/16;
-  background-color: var(--material);
-  min-width: rem(280px)!important;;
-  max-width: rem(800px)!important;
-}
-
-.login {
-  @include flex(center, center);
-  @include make-spacer(px, 2);
-
-  background-color: var(--brand);
-  border-radius: rem(4px);
-  height: rem(26px);
-  color: var(--text-for-brand)!important;
-  font-size: rem(14px);
-
-  &.warning {
-    background-color: var(--red);
-  }
-}
-
 .color {
   @include size(rem(23px));
 
   border-radius: 50%;
   border: rem(2px) solid var(--brand);
+}
+
+.toggle {
+  display: none;
+
+  &.active {
+    display: block;
+  }
 }

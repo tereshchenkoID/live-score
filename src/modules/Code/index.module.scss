@@ -2,7 +2,6 @@
 
 .block {
   position: relative;
-  min-height: rem(300px);
 }
 
 .header {
@@ -16,13 +15,45 @@
   background-color: var(--primary);
   border-bottom: 1px solid var(--border);
   height: rem(34px);
-  cursor: pointer;
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
+}
 
-  &.active,
-  &:hover {
-    color: var(--text-for-material);
-  }
+.header,
+.footer {
+  @include make-spacer('px', 2);
+}
+
+.footer {
+  @include make-spacer('py', 2);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: rem(10px);
+}
+
+.wrapper {
+  @include make-spacer(p, 2);
+
+  border-bottom: 1px solid var(--border);
+}
+
+.field {
+  @include size(100%, rem(28px));
+  @include make-spacer(px, 2);
+
+  border: rem(1px) solid var(--border);
+  background-color: var(--primary);
+  border-radius: rem(3px);
+  font-size: rem(12px);
+  color: var(--sub-text);
+  pointer-events: none;
+}
+
+.notification {
+  @include make-spacer(mt, 1);
+
+  font-size: rem(12px);
+  max-width: rem(300px);
 }

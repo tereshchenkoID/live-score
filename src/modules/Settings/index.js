@@ -3,12 +3,12 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-import classNames from "classnames";
-
 import {setNotification} from "store/actions/notificationAction";
 import {compareArrays} from "helpers/compareArrays";
+import {setConfig, updateConfig} from "store/actions/configAction";
 
 import Loader from "components/Loader";
+import Button from "components/Button";
 
 import style from './index.module.scss';
 
@@ -66,7 +66,7 @@ const OPTIONS = {
         BUTTONS.enable, BUTTONS.disable
     ],
     tabs: [
-        BUTTONS.bottom, BUTTONS.top, BUTTONS.disable
+        BUTTONS.disable, BUTTONS.bottom,
     ],
     mode: [
         BUTTONS.auto, BUTTONS.desktop, BUTTONS.mobile
@@ -81,8 +81,8 @@ const Settings = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const {auth} = useSelector((state) => state.auth)
+    const {config} = useSelector((state) => state.config)
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState([])
     const [defaults, setDefaults] = useState([])
 
     const {post} = useRequest()
@@ -91,30 +91,32 @@ const Settings = () => {
         const url = auth ? `/lmt/settings/?token=${auth}` : `/lmt/settings/`
 
         get(url).then((json) => {
-            setData(json)
             setDefaults(json)
-
+            initConfig(json)
             setLoading(false)
         })
     }, []);
 
+    const initConfig = (value) => {
+        const r = config
+        r.settings = value
+        dispatch(setConfig(r))
+    }
+
     const handleSubmit = (event) => {
         event && event.preventDefault();
 
-        post(
-            `/lmt/settings/?token=${auth}`,
-            JSON.stringify(data)
-        ).then((json) => {
+        post(`/lmt/settings/?token=${auth}`, JSON.stringify(config.settings)).then((json) => {
             if (json) {
-                setData(json)
+                dispatch(updateConfig('settings', json))
                 setDefaults(json)
                 dispatch(setNotification(t('notification.date_update')))
             }
         })
     }
 
-    const updateData = (key, data) => {
-        setData((prev) => ({ ...prev, [key]: data }));
+    const updateData = (key, value) => {
+        dispatch(updateConfig(`settings.${key}`, value))
     }
 
     return (
@@ -138,21 +140,14 @@ const Settings = () => {
                                         <div className={style.options}>
                                             {
                                                 value.map((item, idx) =>
-                                                    <button
+                                                    <Button
                                                         key={idx}
-                                                        type={'button'}
-                                                        className={
-                                                            classNames(
-                                                                style.button,
-                                                                data[key] === item.value && style.active
-                                                            )
-                                                        }
-                                                        onClick={() => {
+                                                        text={t(`interface.${item.name}`)}
+                                                        view={config.settings[key] !== item.value && 'outline'}
+                                                        action={() => {
                                                             updateData(key, item.value)
                                                         }}
-                                                    >
-                                                        {t(`interface.${item.name}`)}
-                                                    </button>
+                                                    />
                                                 )
                                             }
                                         </div>
@@ -162,34 +157,19 @@ const Settings = () => {
                             <div className={style.footer}>
                                 {
                                     auth &&
-                                    <button
+                                    <Button
                                         type={'submit'}
-                                        className={
-                                            classNames(
-                                                style.button,
-                                                style.active,
-                                                compareArrays(data, defaults) && style.disabled
-                                            )
-                                        }
-                                    >
-                                        {t('interface.save')}
-                                    </button>
+                                        text={t('interface.save')}
+                                        view={compareArrays(config.settings, defaults) && 'disabled'}
+                                    />
                                 }
-                                <button
-                                    className={
-                                        classNames(
-                                            style.button,
-                                            style.active,
-                                            compareArrays(data, defaults) && style.disabled
-                                        )
-                                    }
-                                    type={'button'}
-                                    onClick={() => {
-                                        setData(defaults)
+                                <Button
+                                    text={t('interface.reset')}
+                                    view={compareArrays(config.settings, defaults) && 'disabled'}
+                                    action={() => {
+                                        initConfig(defaults)
                                     }}
-                                >
-                                    {t('interface.reset')}
-                                </button>
+                                />
                             </div>
                         </form>
             }

@@ -2,13 +2,13 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-import classNames from "classnames";
-
 import {setNotification} from "store/actions/notificationAction";
 import {useRequest} from "hooks/useRequest";
 import {compareArrays} from "helpers/compareArrays";
+import {setConfig, updateConfig} from "store/actions/configAction";
 
 import Loader from "components/Loader";
+import Button from "components/Button";
 import Color from "./Color";
 
 import style from './index.module.scss';
@@ -18,8 +18,8 @@ const Styling = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const {auth} = useSelector((state) => state.auth)
+    const {config} = useSelector((state) => state.config)
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState([])
     const [defaults, setDefaults] = useState([])
 
     const {post} = useRequest()
@@ -28,30 +28,32 @@ const Styling = () => {
         const url = auth ? `/lmt/styling/?token=${auth}` : `/lmt/styling/`
 
         get(url).then((json) => {
-            setData(json)
             setDefaults(json)
-
+            initConfig(json)
             setLoading(false)
         })
     }, []);
 
+    const initConfig = (value) => {
+        const r = config
+        r.styling = value
+        dispatch(setConfig(r))
+    }
+
     const handleSubmit = (event) => {
         event && event.preventDefault();
 
-        post(
-            `/lmt/styling/?token=${auth}`,
-            JSON.stringify(data)
-        ).then((json) => {
+        post(`/lmt/styling/?token=${auth}`, JSON.stringify(config.styling)).then((json) => {
             if (json) {
-                setData(json)
+                dispatch(updateConfig('styling', json))
                 setDefaults(json)
                 dispatch(setNotification(t('notification.date_update')))
             }
         })
     }
 
-    const updateData = (key, data) => {
-        setData((prev) => ({ ...prev, [key]: data }));
+    const updateData = (key, value) => {
+        dispatch(updateConfig(`styling.${key}`, value))
     }
 
     return (
@@ -70,17 +72,17 @@ const Styling = () => {
                                     <input
                                         className={style.field}
                                         type="text"
-                                        value={data.logo.url}
+                                        value={config.styling.logo.url}
                                         placeholder={'URL'}
                                         onChange={(e) =>
-                                            updateData('logo', { ...data.logo, url: e.target.value })
+                                            updateData('logo.url', e.target.value)
                                         }
                                     />
                                     <p className={style.notification}>{t('notification.logo')}</p>
                                 </div>
 
                                 <div className={style.wrapper}>
-                                    {Object.entries(data.colors).map(([key, value], index) => (
+                                    {Object.entries(config.styling.colors).map(([key, value], index) => (
                                         <div
                                             key={key}
                                             className={style.item}
@@ -89,7 +91,7 @@ const Styling = () => {
                                                 label={key}
                                                 data={value}
                                                 action={(newColor) => {
-                                                    updateData('colors', { ...data.colors, [key]: newColor })
+                                                    updateData(`colors.${key}`, newColor)
                                                 }}
                                             />
                                         </div>
@@ -99,32 +101,19 @@ const Styling = () => {
                             <div className={style.footer}>
                                 {
                                     auth &&
-                                    <button
+                                    <Button
                                         type={'submit'}
-                                        className={
-                                            classNames(
-                                                style.button,
-                                                compareArrays(data, defaults) && style.disabled
-                                            )
-                                        }
-                                    >
-                                        {t('interface.save')}
-                                    </button>
+                                        text={t('interface.save')}
+                                        view={compareArrays(config.styling, defaults) && 'disabled'}
+                                    />
                                 }
-                                <button
-                                    className={
-                                        classNames(
-                                            style.button,
-                                            compareArrays(data, defaults) && style.disabled
-                                        )
-                                    }
-                                    type={'button'}
-                                    onClick={() => {
-                                        setData(defaults)
+                                <Button
+                                    text={t('interface.reset')}
+                                    view={compareArrays(config.styling, defaults) && 'disabled'}
+                                    action={() => {
+                                        initConfig(defaults)
                                     }}
-                                >
-                                    {t('interface.reset')}
-                                </button>
+                                />
                             </div>
                         </form>
             }

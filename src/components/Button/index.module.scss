@@ -1,0 +1,32 @@
+@import "scss/config";
+
+.block {
+  @include size(100%, rem(26px));
+  @include flex(center, center);
+  @include make-spacer(px, 2);
+
+  background-color: var(--brand);
+  border-radius: rem(2px);
+  font-size: rem(14px);
+  color: var(--text-for-brand)!important;
+
+  &:hover {
+    background-color: var(--brand-hover);
+    color: var(--text-for-brand)!important;
+  }
+
+  &.outline {
+    background-color: transparent;
+    border: 1px solid var(--brand);
+    color: var(--sub-text)!important;
+  }
+
+  &.warning {
+    background-color: var(--red);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

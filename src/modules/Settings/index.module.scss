@@ -16,15 +16,9 @@
   background-color: var(--primary);
   border-bottom: 1px solid var(--border);
   height: rem(34px);
-  cursor: pointer;
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
-
-  &.active,
-  &:hover {
-    color: var(--text-for-material);
-  }
 }
 
 .header,
@@ -55,31 +49,4 @@
 
   font-size: rem(12px);
   text-transform: uppercase;
-}
-
-.button {
-  @include flex(center, center);
-  @include make-spacer(px, 2);
-
-  background-color: transparent;
-  border: 1px solid var(--brand);
-  border-radius: rem(2px);
-  height: rem(26px);
-  font-size: rem(14px);
-  color: var(--sub-text)!important;
-
-  &:hover {
-    background-color: var(--brand-hover);
-    color: var(--text-for-brand)!important;
-  }
-
-  &.active {
-    background-color: var(--brand);
-    color: var(--text-for-brand)!important;
-  }
-
-  &.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
 }

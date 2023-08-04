@@ -11,6 +11,7 @@ import {iframe} from "constant/config";
 
 import Icon from "components/Icon";
 import Theme from "components/Theme";
+import Button from "components/Button";
 import Sports from "modules/Sports";
 import Code from "modules/Code";
 import Settings from "modules/Settings";
@@ -20,23 +21,9 @@ import Resize from "modules/Resize";
 import Login from "modules/Login";
 import Color from "modules/Color";
 import Notification from "modules/Notification";
+import Window from "modules/Window";
 
 import style from './index.module.scss';
-
-const getContent = (type) => {
-    switch (type) {
-        case 0:
-            return <Sports />
-        case 1:
-            return <Settings/>
-        case 2:
-            return <Styling/>
-        case 3:
-            return <Code/>
-        default:
-            return <Sports/>
-    }
-}
 
 const NAVBAR = [
     {
@@ -53,14 +40,13 @@ const NAVBAR = [
     },
 ]
 
-
 const Home = ({theme, setTheme}) => {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {notification} = useSelector((state) => state.notification)
     const {auth} = useSelector((state) => state.auth)
-    const [active, setActive] = useState(0)
+    const [active, setActive] = useState(2)
     const [settings, setSettings] = useState(false)
     const [width, setWidth] = useState(iframe.min);
     const [language, setLanguage] = useState(sessionStorage.getItem('flag') || 'gb')
@@ -126,25 +112,11 @@ const Home = ({theme, setTheme}) => {
 
                 <div className={style.settings}>
                     <div className={style.setting}>
-                        <button
-                            className={
-                                classNames(
-                                    style.login,
-                                    auth && style.warning
-                                )
-                            }
-                            onClick={() => {
-                                handleLogin()
-                            }}
-                        >
-                            {
-                                auth
-                                    ?
-                                        t('interface.logout')
-                                    :
-                                        t('interface.login')
-                            }
-                        </button>
+                        <Button
+                            text={auth ? t('interface.logout') : t('interface.login')}
+                            view={auth && 'warning'}
+                            action={handleLogin}
+                        />
                     </div>
                     <div className={style.setting}>
                         <Theme
@@ -222,16 +194,50 @@ const Home = ({theme, setTheme}) => {
 
             <div className={style.wrapper}>
                 <aside className={style.aside}>
-                    {getContent(active)}
+                    <div
+                        className={
+                            classNames(
+                                style.toggle,
+                                active === 0 && style.active
+                            )
+                        }
+                    >
+                        <Sports />
+                    </div>
+                    <div
+                        className={
+                            classNames(
+                                style.toggle,
+                                active === 1 && style.active
+                            )
+                        }
+                    >
+                        <Settings />
+                    </div>
+                    <div
+                        className={
+                            classNames(
+                                style.toggle,
+                                active === 2 && style.active
+                            )
+                        }
+                    >
+                        <Styling />
+                    </div>
+                    <div
+                        className={
+                            classNames(
+                                style.toggle,
+                                (auth && active === 3) && style.active
+                            )
+                        }
+                    >
+                        <Code />
+                    </div>
                 </aside>
 
                 <div className={style.content}>
-                    <div
-                        className={style.window}
-                        style={{
-                            width: `${width}px`
-                        }}
-                    />
+                    <Window width={width} />
                 </div>
             </div>
 
