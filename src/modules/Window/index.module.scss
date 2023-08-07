@@ -3,9 +3,7 @@
 .block {
   @include flex(center, center, column);
   @include make-spacer(mx, auto);
-  @include size(280px, auto);
 
-  aspect-ratio: 9/16;
   background-color: var(--material);
   min-width: rem(280px)!important;;
   max-width: rem(800px)!important;

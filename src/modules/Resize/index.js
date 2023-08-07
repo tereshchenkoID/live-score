@@ -1,4 +1,8 @@
+import {useDispatch, useSelector} from "react-redux";
+
 import {iframe} from "constant/config";
+
+import {setWindow} from "store/actions/windowAction";
 
 import Icon from "components/Icon";
 
@@ -19,27 +23,44 @@ const OPTIONS = [
     }
 ]
 
-const Resize = ({width, setWidth, setSettings}) => {
+const Resize = ({setSettings}) => {
+    const {window} = useSelector((state) => state.window)
+    const dispatch = useDispatch()
+
     const handleNumberInputChange = (event) => {
         const newWidth = parseInt(event.target.value);
-        setWidth(newWidth);
+        const a = window
+        a.width = newWidth
+
+        dispatch(setWindow(a))
     };
 
     const handleRangeInputChange = (event) => {
         const newWidth = parseInt(event.target.value);
-        setWidth(newWidth);
+        const a = window
+        a.width = newWidth
+
+        dispatch(setWindow(a))
     };
 
     const handleBlur = () => {
-        if (width < iframe.min) {
-            setWidth(iframe.min);
-        } else if (width > iframe.max) {
-            setWidth(iframe.max);
+        const a = window
+
+        if (window.width < iframe.min) {
+            a.width = iframe.min
+            dispatch(setWindow(a))
+        }
+        else if (window.width > iframe.max) {
+            a.width = iframe.max
+            dispatch(setWindow(a))
         }
     };
 
     const setWidthValue = (value) => {
-        setWidth(value);
+        const a = window
+        a.width = value
+
+        dispatch(setWindow(a))
     };
 
     return (
@@ -73,7 +94,7 @@ const Resize = ({width, setWidth, setSettings}) => {
                     <div className={style.row}>
                         <input
                             type="range"
-                            value={width}
+                            value={window.width}
                             className={style.range}
                             onInput={handleRangeInputChange}
                             onBlur={handleBlur}
@@ -85,7 +106,7 @@ const Resize = ({width, setWidth, setSettings}) => {
                     <div className={style.row}>
                         <input
                             type="number"
-                            value={width}
+                            value={window.width}
                             className={style.field}
                             onChange={handleNumberInputChange}
                             onBlur={handleBlur}

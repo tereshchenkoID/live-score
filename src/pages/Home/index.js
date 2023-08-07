@@ -7,8 +7,6 @@ import {setAuth} from "store/actions/authAction";
 
 import classNames from "classnames";
 
-import {iframe} from "constant/config";
-
 import Icon from "components/Icon";
 import Theme from "components/Theme";
 import Button from "components/Button";
@@ -44,11 +42,12 @@ const Home = ({theme, setTheme}) => {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {notification} = useSelector((state) => state.notification)
+
     const {auth} = useSelector((state) => state.auth)
-    const [active, setActive] = useState(2)
+    const {notification} = useSelector((state) => state.notification)
+
+    const [active, setActive] = useState(0)
     const [settings, setSettings] = useState(false)
-    const [width, setWidth] = useState(iframe.min);
     const [language, setLanguage] = useState(sessionStorage.getItem('flag') || 'gb')
     const [color, setColor] = useState(sessionStorage.getItem('color') || 'transparent')
 
@@ -162,11 +161,7 @@ const Home = ({theme, setTheme}) => {
 
                 {
                     settings === 0 &&
-                    <Resize
-                        width={width}
-                        setWidth={setWidth}
-                        setSettings={setSettings}
-                    />
+                    <Resize setSettings={setSettings}/>
                 }
 
                 {
@@ -237,7 +232,7 @@ const Home = ({theme, setTheme}) => {
                 </aside>
 
                 <div className={style.content}>
-                    <Window width={width} />
+                    <Window />
                 </div>
             </div>
 

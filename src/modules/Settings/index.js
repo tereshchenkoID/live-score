@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {setNotification} from "store/actions/notificationAction";
 import {compareArrays} from "helpers/compareArrays";
 import {setConfig, updateConfig} from "store/actions/configAction";
+import {setWindow} from "store/actions/windowAction";
 
 import Loader from "components/Loader";
 import Button from "components/Button";
@@ -65,15 +66,50 @@ const OPTIONS = {
     statistics: [
         BUTTONS.enable, BUTTONS.disable
     ],
+    video: [
+        BUTTONS.enable, BUTTONS.disable
+    ],
     tabs: [
-        BUTTONS.disable, BUTTONS.bottom,
+        BUTTONS.top, BUTTONS.bottom,
     ],
     mode: [
         BUTTONS.auto, BUTTONS.desktop, BUTTONS.mobile
-    ],
-    video: [
-        BUTTONS.enable, BUTTONS.disable
     ]
+}
+
+const STATS_HEIGHT = {
+    '1': 220,
+    '3': 260,
+    '13': 185,
+    '18': 185,
+    '91': 220
+}
+
+const OPTIONS_HEIGHT = {
+    statistics: 42,
+    video: 42
+}
+
+const DEFAULTS_HEIGHT = {
+    scoreboard: 52,
+    tabs: 48
+}
+
+const getFieldWidth = (data, config) => {
+    if (config === BUTTONS.double.value) {
+        return data
+    }
+    else {
+        if (data < 280) {
+            return 280
+        }
+        else if(data > 380) {
+            return 380
+        }
+        else {
+            return data
+        }
+    }
 }
 
 const Settings = () => {
@@ -81,6 +117,8 @@ const Settings = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const {auth} = useSelector((state) => state.auth)
+    const {match} = useSelector((state) => state.match)
+    const {window} = useSelector((state) => state.window)
     const {config} = useSelector((state) => state.config)
     const [loading, setLoading] = useState(true)
     const [defaults, setDefaults] = useState([])
@@ -97,10 +135,63 @@ const Settings = () => {
         })
     }, []);
 
+    const setHeight = () => {
+       const a = window
+       let height = (getFieldWidth(a.width, config.settings.layout) / 1.8) + DEFAULTS_HEIGHT.tabs
+
+       if (config.settings.scoreboard === BUTTONS.enable.value) {
+           height += DEFAULTS_HEIGHT.scoreboard
+       }
+
+       if (config.settings.layout === BUTTONS.topdown.value) {
+           height += STATS_HEIGHT[match.sport_id] || 220
+
+           Object.entries(OPTIONS_HEIGHT).map(([key, value], index) => {
+               if (config.settings[key] === BUTTONS.enable.value) {
+                   height += OPTIONS_HEIGHT[key]
+               }
+           })
+       }
+
+       a.height = height
+       dispatch(setWindow(a))
+    }
+
+    const setWidth = () => {
+        const a = window
+        if (config.settings.layout === BUTTONS.double.value) {
+            a.width = 560
+        }
+
+        dispatch(setWindow(a))
+    }
+
+    useEffect(() => {
+        setHeight()
+    }, [match, config, window.width])
+
+    useEffect(() => {
+        setWidth()
+    }, [config.settings.layout])
+
+
     const initConfig = (value) => {
         const r = config
         r.settings = value
         dispatch(setConfig(r))
+
+
+        const a = window
+        if (config.settings.layout === BUTTONS.double.value) {
+            a.width = 560
+        }
+        else {
+            a.width = 360
+        }
+
+        dispatch(setWindow(a))
+
+        setHeight()
     }
 
     const handleSubmit = (event) => {
@@ -168,6 +259,7 @@ const Settings = () => {
                                     view={compareArrays(config.settings, defaults) && 'disabled'}
                                     action={() => {
                                         initConfig(defaults)
+                                        setHeight()
                                     }}
                                 />
                             </div>
