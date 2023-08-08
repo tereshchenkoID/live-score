@@ -19,6 +19,15 @@
   z-index: 1;
 }
 
+.logo {
+  @include size(auto, rem(40px));
+  @include make-spacer(ml, 0);
+  @include make-spacer(mr, auto);
+
+  align-self: center;
+  min-width: rem(100px);
+}
+
 .links {
   @include flex;
 }

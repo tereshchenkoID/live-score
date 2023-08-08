@@ -18,6 +18,7 @@ const Window = () => {
             {
                 match.id &&
                 <iframe
+                    title="Window"
                     className={style.iframe}
                     src={`https://widget.matchtracker.live/?eventID=${match.id}&config=${btoa(JSON.stringify(config))}`}
                     frameBorder="0"

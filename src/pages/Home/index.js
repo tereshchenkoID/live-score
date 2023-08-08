@@ -71,6 +71,15 @@ const Home = ({theme, setTheme}) => {
             className={style.block}
         >
             <nav className={style.navbar}>
+                <a
+                    href={"./"}
+                    className={style.logo}
+                >
+                    <img
+                        src={'img/logo.svg'}
+                        alt="Logo"
+                    />
+                </a>
                 <div className={style.links}>
                     {
                         NAVBAR.map((item, index) =>

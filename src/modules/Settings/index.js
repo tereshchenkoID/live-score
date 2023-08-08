@@ -95,20 +95,15 @@ const DEFAULTS_HEIGHT = {
     tabs: 48
 }
 
-const getFieldWidth = (data, config) => {
-    if (config === BUTTONS.double.value) {
-        return data
+const getFieldWidth = (data) => {
+    if (data < 280) {
+        return 280
+    }
+    else if(data > 380) {
+        return 380
     }
     else {
-        if (data < 280) {
-            return 280
-        }
-        else if(data > 380) {
-            return 380
-        }
-        else {
-            return data
-        }
+        return data
     }
 }
 
@@ -137,7 +132,7 @@ const Settings = () => {
 
     const setHeight = () => {
        const a = window
-       let height = (getFieldWidth(a.width, config.settings.layout) / 1.8) + DEFAULTS_HEIGHT.tabs
+       let height = (getFieldWidth(a.width) / 1.8) + DEFAULTS_HEIGHT.tabs
 
        if (config.settings.scoreboard === BUTTONS.enable.value) {
            height += DEFAULTS_HEIGHT.scoreboard
@@ -150,6 +145,7 @@ const Settings = () => {
                if (config.settings[key] === BUTTONS.enable.value) {
                    height += OPTIONS_HEIGHT[key]
                }
+               return true
            })
        }
 
@@ -160,7 +156,10 @@ const Settings = () => {
     const setWidth = () => {
         const a = window
         if (config.settings.layout === BUTTONS.double.value) {
-            a.width = 560
+            a.width = 640
+        }
+        else {
+            a.width = 360
         }
 
         dispatch(setWindow(a))
@@ -180,17 +179,7 @@ const Settings = () => {
         r.settings = value
         dispatch(setConfig(r))
 
-
-        const a = window
-        if (config.settings.layout === BUTTONS.double.value) {
-            a.width = 560
-        }
-        else {
-            a.width = 360
-        }
-
-        dispatch(setWindow(a))
-
+        setWidth()
         setHeight()
     }
 
