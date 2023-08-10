@@ -138,6 +138,10 @@ const Settings = () => {
            height += DEFAULTS_HEIGHT.scoreboard
        }
 
+       if (config.settings.layout === BUTTONS.single.value) {
+           height -= DEFAULTS_HEIGHT.tabs
+       }
+
        if (config.settings.layout === BUTTONS.topdown.value) {
            height += STATS_HEIGHT[match.sport_id] || 220
 
@@ -227,6 +231,7 @@ const Settings = () => {
                                                         action={() => {
                                                             updateData(key, item.value)
                                                         }}
+                                                        disabled={item === BUTTONS.top}
                                                     />
                                                 )
                                             }

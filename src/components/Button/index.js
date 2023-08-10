@@ -6,7 +6,8 @@ const Button = ({
     text,
     view = null,
     type = 'button',
-    action
+    action,
+    disabled
 }) => {
 
     return (
@@ -14,7 +15,8 @@ const Button = ({
             className={
                 classNames(
                     style.block,
-                    style[view]
+                    style[view],
+                    disabled && style.disabled
                 )
             }
             type={type}
